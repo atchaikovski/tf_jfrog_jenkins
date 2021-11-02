@@ -9,7 +9,7 @@ resource "aws_security_group" "artifactory_server" {
   vpc_id = data.aws_vpc.default.id
 
   dynamic "ingress" {
-    #for_each = var.allowed_ports
+
     for_each = local.start
     content {
       from_port   = ingress.value
@@ -29,7 +29,7 @@ resource "aws_security_group" "artifactory_server" {
 
 }
 
-
+# creating EC2 instance with Artifactory
 resource "aws_instance" "artifactory_server" {
   ami                         = "ami-0affd4508a5d2481b"
   instance_type               = var.instance_type
@@ -38,7 +38,7 @@ resource "aws_instance" "artifactory_server" {
   key_name                    = "aws_adhoc"
   ebs_block_device {
     device_name = "/dev/sda1"
-    volume_size = 20
+    volume_size = 20           
   }
   associate_public_ip_address = true
   
