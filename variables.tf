@@ -8,7 +8,7 @@ variable "region" {
 variable "instance_type" {
   description = "Instance Type"
   type        = string
-  default     = "c3.large"
+  default     = "t2.medium"
 }
 
 variable "allowed_ports" {
@@ -28,11 +28,11 @@ variable "common_tags" {
   default = {
     Owner       = "Alex Tchaikovski"
     Project     = "Jenkins + JFrog"
-    Purpose     = "Artifactory"
+    Purpose     = "Learning"
   }
 }
 
-variable "domain_tchaikovski_link" {
+variable "domain_name" {
   default = "tchaikovski.link"
 }
 

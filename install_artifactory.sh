@@ -1,4 +1,7 @@
 #!/bin/bash
+
+set -ex
+
 sudo yum install -y -q epel-release
 sudo yum install -y -q s3fs-fuse
 
@@ -8,7 +11,6 @@ export S3_BIN=/opt/s3
 export S3_BUCKET=sf-project4-binaries
 
 ## here should be a var passed from Terraform to make this universal!
-
 export JFROG_URL="jfrog.tchaikovski.link"
 sudo sh -c "echo 'JFROG_URL=jfrog.tchaikovski.link' >>/etc/profile"
 
@@ -48,34 +50,6 @@ then
 
     echo "==> removing jfrog archive"
     sudo rm /opt/jfrog-rpm-installer.tar.gz
-
-    #if [[ -f "$S3_BIN/pipelines-1.19.3.tar.gz" ]]
-    #then
-      # docker needed for pipelines
-       #sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
-       #sudo yum install -y -q docker-ce docker-ce-cli containerd.io
-       #sudo systemctl start docker
-       #sudo systemctl enable docker
-
-       #echo "==> files of pipelines found, proceed"
-       #sudo cp $S3_BIN/pipelines-1.19.3.tar.gz $JFROG_HOME
-       #cd $JFROG_HOME
-       # sudo tar zxvf pipelines-1.19.3.tar.gz 
-       # ? check whether it's there already 
-       # echo "==> removing pipelines archive"
-       # sudo rm pipelines-1.19.3.tar.gz 
-       # sudo mv pipelines-1.19.3 pipelines
-
-
-    #   TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
-    #   IPA=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/local-ipv4`
-    #   echo "local IP is: "$IPA
-    #   sudo ./pipelines install --base-url-ui http://jfrog.tchaikovski.link:8081 \
-    #           --artifactory-joinkey "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE" \
-    #           --installer-ip $IPA \
-    #           --api-url http://jfrog.tchaikovski.link:8081/artifactory/api/
-
-    #fi
 
     echo "==> removing secrets and unwanted stuff..."
     sudo umount $S3_BIN
