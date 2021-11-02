@@ -66,6 +66,18 @@ resource "aws_instance" "artifactory_server" {
       } 
     } 
 
+   provisioner "file" {
+      source      = "${path.module}/artifactory.lic"
+      destination = "artifactory.lic"
+      
+      connection {
+         type        = "ssh"
+         user        = "centos"
+         host        = "${element(aws_instance.artifactory_server.*.public_ip, 0)}"
+         private_key = "${file("~/.ssh/aws_adhoc.pem")}"      
+      } 
+    } 
+
    provisioner "remote-exec" {
       connection {
          type        = "ssh"

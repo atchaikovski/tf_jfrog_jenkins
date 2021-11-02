@@ -32,6 +32,7 @@ then
     sudo mv jfrog-platform-trial-prox-7.27.6-rpm jfrog
     echo "==> installing as a service for artifactory user"
     cd $JFROG_HOME
+    sudo yum history sync
     sudo ./install.sh
 
     echo "==> starting Artifactory as a service"
@@ -44,7 +45,6 @@ then
     if [[ -f "$S3_BIN/pipelines-1.19.3.tar.gz" ]]
     then
       # docker needed for pipelines
-       sudo yum history sync
        sudo yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
        #sudo yum install -y -q docker-ce docker-ce-cli containerd.io
        #sudo systemctl start docker
@@ -53,14 +53,16 @@ then
        echo "==> files of pipelines found, proceed"
        sudo cp $S3_BIN/pipelines-1.19.3.tar.gz $JFROG_HOME
        cd $JFROG_HOME
-       sudo tar zxvf pipelines-1.19.3.tar.gz 
+       # sudo tar zxvf pipelines-1.19.3.tar.gz 
        # ? check whether it's there already 
-       echo "==> removing pipelines archive"
-       sudo rm pipelines-1.19.3.tar.gz 
-       sudo mv pipelines-1.19.3 pipelines
+       # echo "==> removing pipelines archive"
+       # sudo rm pipelines-1.19.3.tar.gz 
+       # sudo mv pipelines-1.19.3 pipelines
 
-       cd artifactory
-       cat var/
+       cd artifactory/var/etc/artifactory 
+       sudo cp ~/artifactory.lic .
+       sudo chmod 640 artifactory.lic
+       sudo chown artifactory:artifactory artifactory.lic
 
     #   TOKEN=`curl -X PUT "http://169.254.169.254/latest/api/token" -H "X-aws-ec2-metadata-token-ttl-seconds: 21600"`
     #   IPA=`curl -H "X-aws-ec2-metadata-token: $TOKEN" -v http://169.254.169.254/latest/meta-data/local-ipv4`
