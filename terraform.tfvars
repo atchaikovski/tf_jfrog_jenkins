@@ -1,5 +1,5 @@
 region                     = "us-east-1"
-instance_type              = "c3.large"
+instance_type              = "t2.medium"
 enable_detailed_monitoring = true
 
 #allowed_ports = ["80", "443", "8000-8100"]

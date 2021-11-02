@@ -36,8 +36,11 @@ resource "aws_instance" "artifactory_server" {
   vpc_security_group_ids      = [aws_security_group.artifactory_server.id]
   monitoring                  = var.enable_detailed_monitoring
   key_name                    = "aws_adhoc"
+  ebs_block_device {
+    device_name = "/dev/sda1"
+    volume_size = 20
+  }
   associate_public_ip_address = true
-  #user_data                   = "${file("packages.sh")}"
   
     provisioner "file" {
       source      = "${path.module}/passwd-s3fs"
