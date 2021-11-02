@@ -65,8 +65,8 @@ resource "aws_instance" "artifactory_server" {
       } 
 
     inline = [
-      "unzip package.tar.gz",
-      "rm package.zip",
+      "tar zxvf package.tar.gz",
+      "rm package.tar.gz",
       "chmod 0600 passwd-s3fs",
       "sudo mv passwd-s3fs /etc/passwd-s3fs",
       "sudo chown root:root /etc/passwd-s3fs",
