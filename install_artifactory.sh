@@ -14,7 +14,7 @@ export S3_BUCKET=sf-project4-binaries
 export JFROG_URL="jfrog.tchaikovski.link"
 sudo sh -c "echo 'JFROG_URL=jfrog.tchaikovski.link' >>/etc/profile"
 
-export ARTIFACTORY_HOME=/$JFROG_HOME/artifactory
+export ARTIFACTORY_HOME=$JFROG_HOME/artifactory
 sudo sh -c "echo '' >>/etc/profile"
 
 sudo adduser artifactory
