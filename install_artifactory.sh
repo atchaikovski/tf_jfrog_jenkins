@@ -8,8 +8,9 @@ sudo yum install -y -q s3fs-fuse
 export JFROG_HOME=/opt/jfrog
 sudo sh -c "echo 'JFROG_HOME=/opt/jfrog' >>/etc/profile"
 export S3_BIN=/opt/s3
+export S3_CERTS=/opt/certs
 export S3_BUCKET=sf-project4-binaries
-export S3_CERTS_BUCKET="tchaikovski-link-letsencrypt-certificates"
+export S3_CERTS_BUCKET=tchaikovski-link-letsencrypt-certificates
 
 ## here should be a var passed from Terraform to make this universal!
 export JFROG_URL="jfrog.tchaikovski.link"
@@ -23,15 +24,16 @@ sudo sh -c "echo 'artifactory ALL=(ALL) NOPASSWD:ALL' >>/etc/sudoers.d/90-cloud-
 
 # preparing to mount S3 and copy files
 sudo mkdir $S3_BIN
+sudo mkdir $S3_CERTS
 sudo s3fs $S3_BUCKET -o use_cache=/tmp -o allow_other -o uid=1001 -o mp_umask=002 -o multireq_max=5 $S3_BIN
-sudo s3fs $S3_CERTS_BUCKET -o use_cache=/tmp -o allow_other -o uid=1001 -o mp_umask=002 -o multireq_max=5 $S3_BIN
+sudo s3fs $S3_CERTS_BUCKET -o use_cache=/tmp -o allow_other -o uid=1001 -o mp_umask=002 -o multireq_max=5 $S3_CERTS
 
 # check if there's anything in S3 and copy/extract/install
 if [[ -f "$S3_BIN/jfrog-rpm-installer.tar.gz" ]] 
 then
     echo "==> files of Artifactory found, proceed"
     sudo cp $S3_BIN/jfrog-rpm-installer.tar.gz /opt
-    sudo cp $S3_BIN/ssl-certs/* ~/
+    sudo cp $S3_CERTS/ssl-certs/* ~/
 
     cd /opt
     sudo tar zxvf jfrog-rpm-installer.tar.gz
