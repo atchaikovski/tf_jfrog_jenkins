@@ -70,8 +70,8 @@ resource "aws_instance" "artifactory_server" {
       "chmod 0600 passwd-s3fs",
       "sudo mv passwd-s3fs /etc/passwd-s3fs",
       "sudo chown root:root /etc/passwd-s3fs",
-      "chmod +x install_artifactory.sh"
-#      "./install_artifactory.sh"
+      "chmod +x install_artifactory.sh",
+      "./install_artifactory.sh"
     ]
   }
 
