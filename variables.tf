@@ -27,7 +27,7 @@ variable "common_tags" {
   type        = map
   default = {
     Owner       = "Alex Tchaikovski"
-    Project     = "Jenkins + JFrog"
+    Project     = "Jenkins+JFrog"
     Purpose     = "Learning"
   }
 }

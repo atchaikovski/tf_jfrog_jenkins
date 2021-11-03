@@ -4,7 +4,7 @@ enable_detailed_monitoring = true
 
 common_tags = {
   Owner       = "Alex Tchaikovski"
-  Project     = "Jenkins + JFrog"
+  Project     = "Jenkins+JFrog"
   Purpose     = "Learning"
 }
 

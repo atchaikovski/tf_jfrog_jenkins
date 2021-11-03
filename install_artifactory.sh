@@ -45,14 +45,13 @@ then
     sudo chown artifactory:artifactory artifactory.lic
 
     sudo systemctl start artifactory.service
-    sudo systemctl start xray.service
+    #sudo systemctl start xray.service
 
     echo "==> removing jfrog archive"
     sudo rm /opt/jfrog-rpm-installer.tar.gz
 
     echo "==> removing secrets and unwanted stuff..."
     sudo umount $S3_BIN
-    sudo umount $S3_CERTS
     sudo rm -rf $S3_BIN  
     sudo rm /etc/passwd-s3fs
     sudo rm -rf /home/centos/s3fs-*
